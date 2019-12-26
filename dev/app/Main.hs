@@ -24,10 +24,10 @@ import qualified Data.Text                  as T
 siteMeta :: SiteMeta
 siteMeta =
     SiteMeta { siteAuthor = "Me"
-             , baseUrl = "https://example.com"
-             , siteTitle = "My Slick Site"
-             , twitterHandle = Just "myslickhandle"
-             , githubUser = Just "myslickgithubuser"
+             --, baseUrl = "https://example.com"
+             , siteTitle = "Haiyang's blog"
+             , twitterHandle = Nothing
+             , githubUser = Just "haiyanghee"
              }
 
 outputFolder :: FilePath
@@ -43,7 +43,7 @@ withSiteMeta _ = error "only add site meta to objects"
 
 data SiteMeta =
     SiteMeta { siteAuthor    :: String
-             , baseUrl       :: String -- e.g. https://example.ca
+             --, baseUrl       :: String -- e.g. https://example.ca
              , siteTitle     :: String
              , twitterHandle :: Maybe String -- Without @
              , githubUser    :: Maybe String
@@ -51,7 +51,7 @@ data SiteMeta =
     deriving (Generic, Eq, Ord, Show, ToJSON)
 
 -- | Data for the index page
-data IndexInfo =
+newtype IndexInfo =
   IndexInfo
     { posts :: [Post]
     } deriving (Generic, Show, FromJSON, ToJSON)
