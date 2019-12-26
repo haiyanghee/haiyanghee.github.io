@@ -31,7 +31,7 @@ siteMeta =
              }
 
 outputFolder :: FilePath
-outputFolder = "docs/"
+outputFolder = "../"
 
 --Data models-------------------------------------------------------------------
 
