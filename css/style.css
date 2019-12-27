@@ -490,6 +490,32 @@ a.tag, a.category {
   font-size: 0.8em;
 }
 
+.archive {
+  font-family: "Oswald", helvetica, sans-serif;
+  font-size: 4em;
+  height: 1.5em;
+  width: 1.5em;
+  text-align: center;
+  margin: 0.1em;
+  position: absolute;
+  border-radius: 0.1em;
+  opacity: 0.4;
+  -webkit-transition: opacity 0.5s;
+          transition: opacity 0.5s;
+  color: inherit; }
+  .archive path {
+    fill: currentColor; }
+  .archive .logo {
+    width: 100%;
+    height: 100%; }
+  .archive:hover {
+    opacity: 1;
+    text-decoration: none; }
+
+.archive-text {
+  font-size: 0.8em;
+}
+
 #leftarrow {
   position: fixed;
   left: 5px;

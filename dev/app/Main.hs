@@ -9,6 +9,7 @@ import           Control.Lens
 import           Control.Monad
 import           Data.Aeson                 as A
 import           Data.Aeson.Lens
+import           Data.List
 import           Development.Shake
 import           Development.Shake.Classes
 import           Development.Shake.Forward
@@ -67,12 +68,21 @@ data Post =
          }
     deriving (Generic, Eq, Ord, Show, FromJSON, ToJSON, Binary)
 
+
 -- | given a list of posts this will build a table of contents
+buildArchive :: [Post] -> Action ()
+buildArchive posts' = do
+  indexT <- compileTemplate' "site/templates/archive.html"
+  let indexInfo = IndexInfo {posts = sortedPpaths posts'}
+      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON   indexInfo)
+  writeFile' (outputFolder </> "archive.html") indexHTML
+
+
 buildIndex :: [Post] -> Action ()
 buildIndex posts' = do
   indexT <- compileTemplate' "site/templates/index.html"
-  let indexInfo = IndexInfo {posts = posts'}
-      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON indexInfo)
+  let indexInfo = IndexInfo {posts = take 4 $ sortedPpaths posts'}
+      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON   indexInfo)
   writeFile' (outputFolder </> "index.html") indexHTML
 
 -- | Find and build all posts
@@ -80,6 +90,47 @@ buildPosts :: Action [Post]
 buildPosts = do
   pPaths <- getDirectoryFiles "." ["site/posts//*.md"]
   forP pPaths buildPost
+
+sortedPpaths :: [Post] -> [Post]
+sortedPpaths = convBackToPost . sortPostTime . convPostTime . makeToPostDate
+
+convBackToPost :: [(Post, Int)] -> [Post]
+convBackToPost = fmap fst
+
+convPostTime :: [(Post, [String])] -> [(Post, Int)]
+convPostTime = fmap (\(p, e) -> (p, convertDateToDays e))
+
+sortPostTime :: [(Post, Int)] -> [(Post, Int)]
+sortPostTime = sortBy compPostTime
+
+compPostTime :: (Post, Int) -> (Post, Int) -> Ordering
+compPostTime (_, a) (_, b)  | a<b = GT
+                            | a>b = LT
+                            | otherwise = EQ
+
+makeToPostDate :: [Post] -> [(Post, [String])]
+makeToPostDate = fmap (\e -> (e, words $ date e))
+
+convertDateToDays :: [String] -> Int
+convertDateToDays [month,date,year]     | month == "Jan" = (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Feb" = 31 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Mar" = 31 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Apr" = 31*2 + 28 +(read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "May" = 31*2 + 30 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Jun" = 31*3 + 30 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Jul" = 31*3 + 30*2 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Aug" = 31*4 + 30*2 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Sep" = 31*5 + 30*2 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Oct" = 31*5 + 30*3 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Nov" = 31*6 + 30*3 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+                                        | month == "Dec" = 31*6 + 30*4 + 28 + (read $ getRidLastElem date :: Int) +  365*(read year :: Int)
+convertDateToDays _ = 0
+
+getRidLastElem :: [a] -> [a]
+getRidLastElem [] = []
+getRidLastElem [_] = []
+getRidLastElem (a:as) = a:getRidLastElem as
+
 
 -- | Load a post, process metadata, write it to output, then return the post object
 -- Detects changes to either post content or template
@@ -110,6 +161,7 @@ buildRules :: Action ()
 buildRules = do
   allPosts <- buildPosts
   buildIndex allPosts
+  buildArchive allPosts
   copyStaticFiles
 
 main :: IO ()
