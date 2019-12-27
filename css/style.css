@@ -111,7 +111,7 @@ a, a:visited, a:hover {
           transition: color 0.1s; }
   a:hover, a:visited:hover, a:hover:hover {
     color: #EB0978;
-    text-decoration: underline; }
+    text-decoration: none; }
 
 header {
   position: fixed;
@@ -492,12 +492,12 @@ a.tag, a.category {
 
 .archive {
   font-family: "Oswald", helvetica, sans-serif;
-  font-size: 4em;
-  height: 1.5em;
-  width: 1.5em;
+  font-size: 2em;
   text-align: center;
-  margin: 0.1em;
-  position: absolute;
+  margin: auto;
+  left: 3px;
+  top: -10px;
+  position: relative;
   border-radius: 0.1em;
   opacity: 0.4;
   -webkit-transition: opacity 0.5s;
@@ -509,12 +509,11 @@ a.tag, a.category {
     width: 100%;
     height: 100%; }
   .archive:hover {
+    text-decoration: none;
     opacity: 1;
-    text-decoration: none; }
+     }
 
-.archive-text {
-  font-size: 0.8em;
-}
+
 
 #leftarrow {
   position: fixed;
@@ -583,12 +582,20 @@ a.tag, a.category {
 .right-sidebar {
   position: absolute;
   top: 0.75em;
-  right: 0.7em;
+  right: 1.7em;
   display: flex;
 }
 
 .right-sidebar > * {
   margin-left: 12px;
+}
+
+.fancy-container{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.fancy-container:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 /*# sourceMappingURL=style.css.map */
