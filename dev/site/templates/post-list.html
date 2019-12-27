@@ -1,7 +1,11 @@
 <ul>
     {{#posts}}
         <li>
-            <a href="{{url}}">{{title}} <span class="date">{{date}}</span> </a>
+            <a href="{{url}}">{{title}} 
+                <span style="display:inline-block; width: 23px;"></span>
+                {{description}}
+                <span class="date">{{date}}</span> 
+            </a>
         </li>
     {{/posts}}
 </ul>

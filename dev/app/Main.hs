@@ -62,6 +62,7 @@ data Post =
     Post { title   :: String
          , author  :: String
          , content :: String
+         , description :: String
          , url     :: String
          , date    :: String
          , image   :: Maybe String
@@ -81,7 +82,7 @@ buildArchive posts' = do
 buildIndex :: [Post] -> Action ()
 buildIndex posts' = do
   indexT <- compileTemplate' "site/templates/index.html"
-  let indexInfo = IndexInfo {posts = take 4 $ sortedPpaths posts'}
+  let indexInfo = IndexInfo {posts = take 5 $ sortedPpaths posts'}
       indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON   indexInfo)
   writeFile' (outputFolder </> "index.html") indexHTML
 

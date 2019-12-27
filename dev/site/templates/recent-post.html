@@ -1,13 +1,20 @@
-<ul>
+<ul class="fancy-blogPosts-container">
     {{#posts}}
-        <li>
-            <a class="fancy-container" href="{{url}}">
+        <li class="post-card-li-wrapper">
+            <a  class="fancy-container" href="{{url}}">
                 <div class="container-content">
                     <h2>{{title}} <h2>
                     <p><span class="date">{{date}}</span></p>
+                    <h3>
+                        <span class="tab">
+                            <span style="display:inline-block; width: 23px;"></span> 
+                            {{description}}
+                        </span>
+                    </h3>
                 </div>
             </a>
         </li>
     {{/posts}}
+
 </ul>
 
