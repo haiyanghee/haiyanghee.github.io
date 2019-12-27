@@ -293,7 +293,9 @@ a.tag, a.category {
   .table-of-contents h1 {
     font-size: 3em;
     text-align: center;
-    font-family: "Quicksand", helvetica, sans-serif; }
+    font-family: Comfortaa,cursive; }
+
+
   .table-of-contents ul {
     margin: 3em 0;
     list-style: none; }
@@ -495,7 +497,7 @@ a.tag, a.category {
   font-size: 2em;
   text-align: center;
   margin: auto;
-  left: 3px;
+  left: -3px;
   top: -10px;
   position: relative;
   border-radius: 0.1em;
@@ -623,6 +625,10 @@ a.tag, a.category {
     justify-content: center;
     padding-left: 0;
     list-style-type: none;
+}
+.recentPosts{
+font-family: "Quicksand", helvetica, sans-serif;
+font-size: 1.5em;
 }
 
 .tab { 
