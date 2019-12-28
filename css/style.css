@@ -115,8 +115,10 @@ a, a:visited, a:hover {
 
 header {
   position: fixed;
+  overflow: hidden;
   /*color: $night-white;*/
   top: 0;
+  z-index: 1;
   height: 4em;
   width: 100%; }
 
@@ -468,7 +470,7 @@ a.tag, a.category {
 
 #beacon {
   font-family: "Oswald", helvetica, sans-serif;
-  font-size: 4em;
+  font-size: 3.6em;
   height: 1.5em;
   width: 1.5em;
   text-align: center;
@@ -531,13 +533,29 @@ a.tag, a.category {
 
 @media only screen and (max-width: 750px) {
   header {
+    position: fixed;
+    overflow: hidden;
     color: #FFFFFC;
     height: 3em;
-    background: rgba(76, 76, 76, 0.9); }
+    z-index: 1;
+    background: rgba(76, 76, 76, 0.9); 
+    /*
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; 
+  top: 0; 
+  width: 100%; /* Full width */
+    */
+    }
 
   #beacon {
     color: #FFFFFC;
     font-size: 2em;
+    margin: 0; }
+
+  .archive {
+    color: #FFFFFC;
+    font-size: 1.5em;
     margin: 0; }
 
   #theme-button {
