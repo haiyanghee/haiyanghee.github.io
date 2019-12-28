@@ -105,12 +105,10 @@ img {
   margin: auto; }
 
 a, a:visited, a:hover {
-  color: #EB005B;
   text-decoration: none;
   -webkit-transition: color 0.1s;
           transition: color 0.1s; }
   a:hover, a:visited:hover, a:hover:hover {
-    color: #EB0978;
     text-decoration: none; }
 
 header {
