@@ -636,4 +636,22 @@ font-size: 1.5em;
        margin-left: 20px; 
 }
 
+.aboutme{
+  margin-top: 8em;
+}
+
+h4 {
+  font-family: inherit;
+  font-size: 1.25em;
+  width: 80%;
+  max-width: 788px;
+  margin: 0 auto ;
+  padding: 1em 0 0 0; }
+
+.inline-link img {
+  width: 24px;
+  height: 24px;
+  top: 40px
+}
+
 /*# sourceMappingURL=style.css.map */

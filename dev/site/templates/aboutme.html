@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="{{siteTitle}}">
+    <meta name="author" content="{{siteAuthor}}">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>{{siteTitle}}</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    {{>site/templates/header.html}}
+<div id="page">
+            <section class="table-of-contents">
+                <h1>Haiyang's Blog</h1>
+                <h2><span class="recentPosts">About me</span></h2>
+                <div class="aboutme">
+                    <h4>Hi, my name is Haiyang He. I am currently a undergrad student studying Computer Sciences at University of Calgary. I like C++ and Haskell ❤️</h4>
+                    <h4>I will post about my experiences with school and solutions/tutorials for various problems that I think is worth to share. </h4>
+                    <h4>This static blog was generated with <a href="https://github.com/ChrisPenner/slick">slick</a>.</h4>
+                    <h4>If you find any issues with the website please open a <a href="https://github.com/haiyanghee/haiyanghee.github.io/issues">Github issue</a> </h4>
+                    <h4>You can find my Github at  
+                    {{#githubUser}}
+                    <a class="inline-link" href="https://github.com/{{githubUser}}">
+                        <img  src="/images/github-logo.png" alt="Github Profile"/>
+                    </a>
+                    {{/githubUser}}
+
+        
+                </div>
+        </section>
+</div>
+
+{{>site/templates/footer.html}}

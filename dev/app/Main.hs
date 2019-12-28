@@ -71,20 +71,27 @@ data Post =
 
 
 -- | given a list of posts this will build a table of contents
-buildArchive :: [Post] -> Action ()
-buildArchive posts' = do
-  indexT <- compileTemplate' "site/templates/archive.html"
-  let indexInfo = IndexInfo {posts = sortedPpaths posts'}
-      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON   indexInfo)
-  writeFile' (outputFolder </> "archive.html") indexHTML
-
-
-buildIndex :: [Post] -> Action ()
-buildIndex posts' = do
+buildIndexArchive :: [Post] -> Action ()
+buildIndexArchive posts' = do
+  archiveT <- compileTemplate' "site/templates/archive.html"
   indexT <- compileTemplate' "site/templates/index.html"
-  let indexInfo = IndexInfo {posts = take 5 $ sortedPpaths posts'}
+  let archiveInfo = IndexInfo {posts = sortedPpaths posts'}
+      indexInfo = IndexInfo {posts = take 5 $ posts archiveInfo}
+      archiveHTML = T.unpack $ substitute archiveT (withSiteMeta $ toJSON   archiveInfo)
       indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON   indexInfo)
+  writeFile' (outputFolder </> "archive.html") archiveHTML
   writeFile' (outputFolder </> "index.html") indexHTML
+
+
+
+buildAboutMe :: Action ()
+buildAboutMe  = do
+  aboutmeT <- compileTemplate' "site/templates/aboutme.html"
+  let aboutmeInfo = IndexInfo {posts = []}
+      aboutmeHTML = T.unpack $ substitute aboutmeT (withSiteMeta $ toJSON   aboutmeInfo)
+  writeFile' (outputFolder </> "aboutme.html") aboutmeHTML
+
+
 
 -- | Find and build all posts
 buildPosts :: Action [Post]
@@ -161,8 +168,8 @@ copyStaticFiles = do
 buildRules :: Action ()
 buildRules = do
   allPosts <- buildPosts
-  buildIndex allPosts
-  buildArchive allPosts
+  buildIndexArchive allPosts
+  buildAboutMe
   copyStaticFiles
 
 main :: IO ()
