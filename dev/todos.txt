@@ -1,0 +1,2 @@
+- simple folds with good picture representation
+- foldl as foldr, and zips with foldr
